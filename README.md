@@ -15,8 +15,8 @@ We log threat actors: **EVERYTHING NEEDED TO STOP THEM**.
 | Resource | Link |
 |----------|------|
 | **OpenTenebris Platform** | https://opentenebris.org |
-| **API Endpoint** | https://opentenebris.org/api |
-| **Features Page** | https://opentenebris.org/features |
+| **About** | https://opentenebris.org/about.html |
+| **Features Page** | https://opentenebris.org/features.html |
 | **Status Page** | https://status.opentenebris.org |
 | **GitHub** | https://github.com/WinterGate-IC/OpenTenebris |
 
