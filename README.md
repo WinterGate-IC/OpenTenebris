@@ -16,8 +16,7 @@ We log threat actors: **EVERYTHING NEEDED TO STOP THEM**.
 |----------|------|
 | **OpenTenebris Platform** | https://opentenebris.org |
 | **About** | https://opentenebris.org/about.html |
-| **Features Page** | https://opentenebris.org/features.html |
-| **Status Page** | https://status.opentenebris.org |
+| **Features & Status Page** | https://opentenebris.org/features.html |
 | **GitHub** | https://github.com/WinterGate-IC/OpenTenebris |
 
 ## 📋 Core Features
@@ -97,8 +96,6 @@ OpenTenebris is built by WinterGate Intelligence Collective. We are a small volu
 - UI/UX designers
 - Security researchers
 - Community moderators
-
-**Contact:** contributions@opentenebris.org
 
 ## 📜 License
 
