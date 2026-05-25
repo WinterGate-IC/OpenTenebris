@@ -70,7 +70,7 @@ When you make payments on Open Tenebris:
 | **Access your data** | Contact us with your user ID (no email needed) |
 | **Delete your account** | Use the account deletion feature in settings |
 | **Opt out of all non-essential collection** | You already have — there is no non-essential collection |
-| **Report a privacy concern** | Open a ticket in our Discord or email privacy@opentenebris.org |
+| **Report a privacy concern** | Open a ticket in our Discord |
 
 ## 📅 DATA RETENTION SUMMARY
 
