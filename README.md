@@ -88,10 +88,10 @@ Users matching platform-level blacklist patterns enter a 5-day monitoring period
 ## Architecture
 
 ```
-Caddy (reverse proxy, TLS) ──▶ Flask API (Waitress, :5050)
+Caddy (reverse proxy, TLS) ──▶ Flask API (Waitress)
                                   ──▶ SQLite (WAL mode)
                                   ──▶ Cold storage (compressed archives)
-                              ──▶ FastAPI WebSocket (:8000)
+                              ──▶ FastAPI WebSocket 
 ```
 
 **Stack:** Python, Flask, FastAPI (WebSocket), SQLite, Caddy, Waitress
