@@ -39,7 +39,7 @@
 - Permission controls per channel: `can_read` (everyone, members, admin) and `can_send` (everyone, admin, none for read-only)
 - Channel types: text, announcement, announcement_sync, voice
 - Channel categories with collapsible groups
-- Real-time messaging via WebSocket (FastAPI on port 8000)
+- Real-time messaging via WebSocket
 - Message polling fallback (every 3 seconds) when WebSocket disconnects
 - Auto-scroll to bottom on new messages
 - Typing indicators broadcast via WebSocket
@@ -341,14 +341,12 @@ All applied via iptables with systemd services:
 - Single ipset `blacklist` hash table (max 65536 entries)
 - Single iptables rule: `-m set --match-set blacklist src -j DROP`
 - Atomic reloads via `ipset swap`
-- Blacklist file at `/etc/opentenebris/blacklist.txt`
-- Auto-sync every 2 minutes via systemd timer
+- Blacklist file on the server (auto-synced to firewall every 2 minutes)
 - No per-IP iptables rules — prevents rule table overflow
 
 #### Ping Cloaking
 - Maximum 1 ICMP echo reply per 5 seconds per source IP
 - Excess pings silently dropped (appears as timeout/host-unreachable)
-- Uses `iptables -m recent --name pingtrack` with `--rcheck --seconds 5`
 
 #### Probe & Scan Protection
 - Invalid TCP flag combinations blocked:
@@ -356,14 +354,11 @@ All applied via iptables with systemd services:
   - XMAS scan (FIN+URG+PSH)
   - SYN+FIN combination
   - SYN+RST combination
-- Backend file access pattern blocking (iptables `-m string` on ports 80/443):
-  - `.db`, `.py`, `.env`, `.sqlite`, `.git`, `config.json`
-  - `.backup`, `.bak`, `.sql`, `docker-compose`, `Dockerfile`
-  - `proc/self`, `etc/passwd`, server-status, `.env`
+- Backend file access pattern blocking against sensitive file extensions and paths
 
-#### CPU & Memory Limits
-- opencode process: 25% CPU cap via `cpulimit`
-- cgroup v2 memory limit: 512MB max, 256MB high watermark
+#### Process & Resource Limits
+- Process CPU cap (25%)
+- cgroup v2 memory limit with configurable max and high-watermark
 
 ### Application-Level Security
 
@@ -512,20 +507,20 @@ Endpoints:
 
 ### Architecture
 ```
-Caddy (reverse proxy, TLS) ──▶ Flask API (Waitress, :5050)
-                                  ──▶ SQLite (WAL mode)
-                                  ──▶ Cold storage (compressed archives)
-                              ──▶ FastAPI WebSocket (:8000)
+Reverse Proxy (TLS) ──▶ REST API
+                          ──▶ Database (WAL mode)
+                          ──▶ Cold storage (compressed archives)
+                      ──▶ WebSocket Server
 ```
 
 ### Stack
-| Component | Technology | Port |
-|---|---|---|
-| Reverse Proxy | Caddy (TLS 1.3) | 443 |
-| REST API | Flask + Waitress | 5050 |
-| WebSocket | FastAPI (Uvicorn) | 8000 |
-| Database | SQLite (WAL mode) | — |
-| Cache | In-memory | — |
+| Component | Technology |
+|---|---|
+| Reverse Proxy | Caddy (TLS 1.3) |
+| REST API | Flask + Waitress |
+| WebSocket | FastAPI (Uvicorn) |
+| Database | SQLite (WAL mode) |
+| Cache | In-memory |
 
 ### Database
 - SQLite with WAL mode for concurrent read performance
